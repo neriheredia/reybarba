@@ -1,0 +1,22 @@
+export const colors = {
+    buttonPrimary: "#dfa059",
+    buttonSecondary:"#939393",
+    lightBlue: "#00C8FF",
+    darkBlue: "#4874d0",
+    white2:"#e8e8e8",
+    black:"#000000",
+    BackGroundIconNotificationsPurchase:"#D85543",
+    backgroundUnreadNotificationPurchase:"#f9e4e1",
+    backgroundUnreradNotificationSale: "#e2e9f6",
+    BackGroundIconNotificationsSale: "#4874d0",
+    orange: "#da602e",
+    darkGray: "#484848",
+    white: "#FFFFFF",
+    blue: "#4376d8",
+    gray: "#e5e5e5",
+    lightGray: "#dadae6",
+    mediumGray: "#939393",
+    blackBlue: "#3E4360",
+    ligthGray2: "#F6F7F8",
+    disable: "#E5E5E5"
+};
