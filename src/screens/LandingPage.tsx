@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#000",
     flex: 1,
     justifyContent: "center",
-    opacity: 0.5,
+    opacity: 0.6,
     width: "100%",
   },
   container: {

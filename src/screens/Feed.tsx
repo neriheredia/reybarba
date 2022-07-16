@@ -50,7 +50,6 @@ export const Feed = () => {
     images.forEach((_, index) => {
       offSets.push(windowHeight * index);
     });
-    console.log(offSets);
     return offSets;
   }, [images, windowHeight]);
 
