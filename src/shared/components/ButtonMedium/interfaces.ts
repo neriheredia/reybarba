@@ -1,6 +1,7 @@
 export interface ButtonMediumProps {
-    title: "Aceptar" | "Omitir" | "Cancelar" | "Confirmar" | "Rechazar" | "Enviar",
+    title: "Aceptar" | "Omitir" | "Cancelar" | "Confirmar" | "Rechazar" | "Enviar" | string,
     onPress?: () => void,
-    color?: "blue" | "gray" | "red",
-    disabled?: boolean
+    color?: string,
+    disabled?: boolean,
+    transparent?: boolean
 }

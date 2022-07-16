@@ -1,7 +1,7 @@
 import React from "react";
 import { View, StyleSheet, ImageBackground } from "react-native";
 import { TextInput } from "react-native-paper";
-import { images } from "../../constants/images";
+import { images } from "../../../constants/images";
 
 const Register = () => {
   return (
