@@ -14,11 +14,11 @@ import { StatusBar } from "expo-status-bar";
 import { moderateScale } from "../../shared/helpers/scaling";
 import { colors } from "../../constants/colors";
 import { useState } from "react";
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { useNavigation } from '@react-navigation/core';
-import { Animated } from 'react-native';
-import {useRef} from 'react';
-import {useEffect} from 'react';
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { useNavigation } from "@react-navigation/core";
+import { Animated } from "react-native";
+import { useRef } from "react";
+import { useEffect } from "react";
 
 const LandingPage = () => {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
@@ -62,7 +62,9 @@ const LandingPage = () => {
     }, 3000);
   };
 
-  useEffect(() => {fadeIn(), fadeInBtn()}, [fadeIn, fadeInBtn]);
+  useEffect(() => {
+    fadeIn(), fadeInBtn();
+  }, [fadeIn, fadeInBtn]);
 
   return (
     <ImageBackground source={images.loginBackground} style={styles.container}>
@@ -70,17 +72,18 @@ const LandingPage = () => {
       <StatusBar hidden />
       <ScrollView>
         <View style={styles.imageContainer}>
-          <Animated.Image source={images.logo} style={[styles.logo, { opacity: fadeLogo }]} />
+          <Animated.Image
+            source={images.logo}
+            style={[styles.logo, { opacity: fadeLogo }]}
+          />
         </View>
 
         {showIngresButton && (
           <View style={styles.buttonContainer}>
             <Animated.View style={[{ opacity: fadeButton }]}>
-
               <ButtonMedium
                 title={"Ingresar"}
                 onPress={fadeOut}
-
                 color={colors.orange}
               />
             </Animated.View>
@@ -136,8 +139,8 @@ const LandingPage = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: "100%",
     justifyContent: "space-around",
+    width: "100%",
   },
   backgroundOpacity: {
     flex: 1,
@@ -147,7 +150,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    opacity: 0.3,
+    opacity: 0.6,
   },
   buttonContainer: {
     alignSelf: "center",
