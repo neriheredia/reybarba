@@ -10,4 +10,5 @@ export const images = {
     shortHair: require("../../assets/images/cortePelo.jpeg"),
     shortKid: require("../../assets/images/kid.jpeg"),
     barba: require("../../assets/images/barba.jpeg")
+
 }

@@ -1,6 +1,9 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Feed } from "../screens/Feed";
+import { screenOptions } from "../utils/navigationOptions";
+import { colors } from "../constants/colors";
+
 import DiscountsStack from "./DiscountsStack";
 import AcountStack from "./AcountStack";
 import TurnsStack from "../screens/TurnsStack/TurnsStack";
@@ -13,7 +16,7 @@ const Tab = createBottomTabNavigator();
 const NavigationTab = () => {
   return (
     <Tab.Navigator
-    screenOptions={{
+    screenOptions={({ route }) => ({
       headerShown: false, 
       tabBarShowLabel: false,
       tabBarStyle: {
@@ -21,29 +24,31 @@ const NavigationTab = () => {
           height: TAB_BAR_HEIGHT,
           borderColor:colors.brown
       },
-      
+      tabBarIcon: ({ color }) => screenOptions(route, color),
       tabBarHideOnKeyboard: true,
+      tabBarInactiveTintColor: colors.gray,
+      tabBarActiveTintColor: colors.white,
       headerStyle:{
         backgroundColor:colors.orange,
       },
-    }} 
+    })} 
     >
       <Tab.Screen
-        name="feed"
+        name="Home"
         component={Feed}
         options={{ headerShown: false }}
       />
-      <Tab.Screen name="discountsStack" component={DiscountsStack} />
+      <Tab.Screen name="Descuentos" component={DiscountsStack} />
       <Tab.Screen
       
-        name="turnsStack"
+        name="Turnos"
         component={TurnsStack}
         options={{
           headerShown:false,
           headerTintColor:"red",
       }}
       />
-      <Tab.Screen name="acountStack" component={AcountStack} />
+      <Tab.Screen name="Cuenta" component={AcountStack} />
     </Tab.Navigator>
   );
 };
