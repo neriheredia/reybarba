@@ -24,14 +24,18 @@ const ListBarber = ({setBarberSelected, barberSelected}: ListBarberProps) => {
             id:"3"
         },
         {
-            name:"Pablo",
-            image: images.person3,
-            id:"3"
+            name:"Don Julio",
+            image: images.viejito,
+            id:"4"
         },
     ]
 
   return (
-    <ScrollView horizontal style={styles.container}>
+    <ScrollView
+        horizontal
+        style={styles.container}
+        showsHorizontalScrollIndicator={false}
+    >
             {
                 listBarber.length && listBarber.map((item,i) => {
                     return <RenderItemBarbers
