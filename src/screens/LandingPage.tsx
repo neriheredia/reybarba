@@ -9,6 +9,7 @@ import {
 import { useNavigation } from "@react-navigation/core";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { images } from "../constants/images";
+import { colors } from "../constants/colors";
 import { moderateScale } from "../shared/helpers/scaling";
 
 export const LandingPage = () => {
@@ -68,7 +69,7 @@ export const LandingPage = () => {
 const styles = StyleSheet.create({
   capa: {
     alignItems: "center",
-    backgroundColor: "#000",
+    backgroundColor: colors.black,
     flex: 1,
     justifyContent: "center",
     opacity: 0.6,
@@ -76,7 +77,7 @@ const styles = StyleSheet.create({
   },
   container: {
     alignItems: "center",
-    backgroundColor: "#000",
+    backgroundColor: colors.black,
     flex: 1,
     justifyContent: "center",
   },

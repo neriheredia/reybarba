@@ -2,6 +2,7 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Feed } from "../screens/Feed";
 import { screenOptions } from "../utils/navigationOptions";
+import { colors } from "../constants/colors";
 
 import DiscountsStack from "./DiscountsStack";
 import TurnsStack from "./TurnsStack";
@@ -14,11 +15,11 @@ const NavigationTab = () => {
     <Tab.Navigator
       screenOptions={({ route }) => ({
         tabBarStyle: {
-          backgroundColor: "#000",
+          backgroundColor: colors.black,
         },
         tabBarIcon: ({ color }) => screenOptions(route, color),
-        tabBarInactiveTintColor: "gray",
-        tabBarActiveTintColor: "white",
+        tabBarInactiveTintColor: colors.gray,
+        tabBarActiveTintColor: colors.white,
       })}
     >
       <Tab.Screen

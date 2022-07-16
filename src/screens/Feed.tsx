@@ -1,11 +1,10 @@
 import React, { useMemo } from "react";
-import { Dimensions, StyleSheet, FlatList } from "react-native";
+import { StyleSheet, FlatList, useWindowDimensions } from "react-native";
 
 import ImageFeed from "../components/ImageFeed/ImageFeed";
 
-const { height: windowHeight, width: windowWidth } = Dimensions.get("window");
-
 export const Feed = () => {
+  const { height, width } = useWindowDimensions();
   const images = [
     {
       id: 1,
@@ -48,22 +47,17 @@ export const Feed = () => {
   const snapToOffsets = useMemo(() => {
     let offSets: Array<number> = [];
     images.forEach((_, index) => {
-      offSets.push(windowHeight * index);
+      offSets.push(height * index);
     });
     return offSets;
-  }, [images, windowHeight]);
+  }, [images, height]);
 
   return (
     <FlatList
       data={images}
       keyExtractor={(item) => item.id.toString()}
       renderItem={({ item }) => (
-        <ImageFeed
-          coment={item}
-          height={windowHeight}
-          url={item.url}
-          width={windowWidth}
-        />
+        <ImageFeed coment={item} height={height} url={item.url} width={width} />
       )}
       scrollEnabled={true}
       pagingEnabled={true}
