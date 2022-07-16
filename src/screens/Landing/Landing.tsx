@@ -16,6 +16,9 @@ import { colors } from "../../constants/colors";
 import { useState } from "react";
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/core';
+import { Animated } from 'react-native';
+import {useRef} from 'react';
+import {useEffect} from 'react';
 
 const LandingPage = () => {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
@@ -23,23 +26,64 @@ const LandingPage = () => {
   const [showInputPass, setShowInputPass] = useState(false);
   const [showIngresButton, setShowIngreButton] = useState(true);
   const [showFooter, setShowFooter] = useState(true);
+
+  const fadeLogo = useRef(new Animated.Value(0)).current;
+  const fadeButton = useRef(new Animated.Value(0)).current;
+
+  const fadeIn = () => {
+    Animated.timing(fadeLogo, {
+      toValue: 1,
+      duration: 3000,
+      useNativeDriver: false,
+    }).start();
+  };
+
+  const fadeInBtn = () => {
+    Animated.timing(fadeButton, {
+      toValue: 1,
+      duration: 8000,
+      useNativeDriver: false,
+    }).start();
+  };
+
+  const fadeOut = () => {
+    Animated.timing(fadeLogo, {
+      toValue: 0,
+      duration: 3000,
+      useNativeDriver: false,
+    }).start();
+    Animated.timing(fadeButton, {
+      toValue: 0,
+      duration: 3000,
+      useNativeDriver: false,
+    }).start();
+    setTimeout(() => {
+      navigation.navigate("NavigationTab");
+    }, 3000);
+  };
+
+  useEffect(() => {fadeIn(), fadeInBtn()}, [fadeIn, fadeInBtn]);
+
   return (
     <ImageBackground source={images.loginBackground} style={styles.container}>
       <View style={styles.backgroundOpacity} />
       <StatusBar hidden />
       <ScrollView>
         <View style={styles.imageContainer}>
-          <Image source={images.logo} style={styles.logo} />
+          <Animated.Image source={images.logo} style={[styles.logo, { opacity: fadeLogo }]} />
         </View>
 
         {showIngresButton && (
           <View style={styles.buttonContainer}>
-            <ButtonMedium
-              title={"Ingresar"}
-              onPress={() => navigation.navigate("NavigationTab")}
+            <Animated.View style={[{ opacity: fadeButton }]}>
 
-              color={colors.orange}
-            />
+              <ButtonMedium
+                title={"Ingresar"}
+                onPress={fadeOut}
+
+                color={colors.orange}
+              />
+            </Animated.View>
           </View>
         )}
         {showInputEmail && (

@@ -2,7 +2,7 @@ import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import NavigationTab from "./NavigationTab";
-import { LandingPage } from "../screens/LandingPage";
+import LandingPage from "../screens/Landing/Landing";
 
 const Stack = createNativeStackNavigator();
 
