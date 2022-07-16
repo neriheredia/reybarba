@@ -5,7 +5,7 @@ import { moderateScale } from '../../shared/helpers/scaling';
 import ListBarber from './components/ListBarber';
 import {useState} from 'react';
 import ButtonMedium from '../../shared/components/ButtonMedium/ButtonMedium';
-import ChipsList from './components/HoursList';
+import ChipsList from './components/ChipsList';
 import { hoursList, datesList, listServices } from './components/fakeData';
 import { Service } from './components/interfaces';
 import ListServices from './components/ListServices';

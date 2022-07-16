@@ -32,7 +32,6 @@ const styles  = StyleSheet.create({
     image:{
         borderRadius:100,
         opacity:.28,
-
     },
     name:{
         color: colors.white,

@@ -23,12 +23,11 @@ const ListBarber = ({setBarberSelected, barberSelected}: ListBarberProps) => {
             image: images.person3,
             id:"3"
         },
-        // {
-        //     name:"Pablo",
-        //     image: images.person3,
-        //     id:"3"
-        // },
-        
+        {
+            name:"Pablo",
+            image: images.person3,
+            id:"3"
+        },
     ]
 
   return (

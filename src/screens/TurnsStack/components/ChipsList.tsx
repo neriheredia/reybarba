@@ -1,14 +1,11 @@
 import React from 'react'
 import { View, FlatList, StyleSheet } from 'react-native';
 import { moderateScale, verticalScale } from '../../../shared/helpers/scaling';
-import RenderItemHours from './RenderItemHours';
+import RenderItemHours from './RenderItemChips';
 import { DataListProps } from './interfaces';
-import RenderItemChips from './RenderItemHours';
+import RenderItemChips from './RenderItemChips';
 
 const ChipsList = ({dataSelected, setDataSelected, data}: DataListProps) => {
-
-
-
     return (
         <View style={styles.container}>
             <FlatList
