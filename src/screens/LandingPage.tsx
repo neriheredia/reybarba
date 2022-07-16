@@ -1,42 +1,78 @@
-import React from "react";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import React, { useEffect, useRef } from "react";
+import {
+  Animated,
+  Button,
+  ImageBackground,
+  StyleSheet,
+  View,
+} from "react-native";
 import { useNavigation } from "@react-navigation/core";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { images } from "../constants/images";
+import { moderateScale } from "../shared/helpers/scaling";
 
 export const LandingPage = () => {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
+  const fadeLogo = useRef(new Animated.Value(0)).current;
+  const fadeButton = useRef(new Animated.Value(0)).current;
+
+  const fadeIn = () => {
+    Animated.timing(fadeLogo, {
+      toValue: 1,
+      duration: 3000,
+      useNativeDriver: false,
+    }).start();
+  };
+
+  const fadeInBtn = () => {
+    Animated.timing(fadeButton, {
+      toValue: 1,
+      duration: 8000,
+      useNativeDriver: false,
+    }).start();
+  };
+
+  const fadeOut = () => {
+    Animated.timing(fadeLogo, {
+      toValue: 0,
+      duration: 3000,
+      useNativeDriver: false,
+    }).start();
+    setTimeout(() => {
+      navigation.navigate("NavigationTab");
+    }, 3000);
+  };
+
+  useEffect(() => fadeIn(), fadeInBtn(), [fadeIn, fadeInBtn]);
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>REY DE BARBA</Text>
-      <Image
-        style={styles.avatar}
-        source={{
-          uri: "https://i.pinimg.com/564x/8c/f8/d8/8cf8d86df255f4c59ad949c40deb27c6.jpg",
-        }}
-      />
-      <TouchableOpacity
-        style={{
-          alignItems: "center",
-          backgroundColor: "#fff",
-          borderRadius: 6,
-          justifyContent: "center",
-          padding: 10,
-          margin: 20,
-          width: 150,
-        }}
-        onPress={() => navigation.navigate("NavigationTab")}
-      >
-        <Text>INGRESAR</Text>
-      </TouchableOpacity>
-    </View>
+    <ImageBackground
+      source={images.registerBackground}
+      style={styles.container}
+    >
+      <View style={styles.capa}>
+        <View style={styles.imageContainer}>
+          <Animated.Image
+            source={images.logo}
+            style={[styles.logo, { opacity: fadeLogo }]}
+          />
+        </View>
+        <Animated.View style={[styles.buttonRow, { opacity: fadeButton }]}>
+          <Button title="INGRESAR" onPress={fadeOut} />
+        </Animated.View>
+      </View>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
-  avatar: {
-    height: 400,
-    width: 400,
+  capa: {
+    alignItems: "center",
+    backgroundColor: "#000",
+    flex: 1,
+    justifyContent: "center",
+    opacity: 0.5,
+    width: "100%",
   },
   container: {
     alignItems: "center",
@@ -44,9 +80,25 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
   },
-  text: {
-    color: "#fff",
-    fontSize: 30,
-    marginVertical: 40,
+  imageContainer: {
+    flex: 1,
+    justifyContent: "center",
+    height: moderateScale(450, 1.2),
+  },
+  logo: {
+    height: moderateScale(300, 1.2),
+    width: moderateScale(210, 1.1),
+    alignSelf: "center",
+  },
+  btn: {
+    opacity: 1,
+  },
+  buttonRow: {
+    borderRadius: 4,
+    flexBasis: 100,
+    justifyContent: "space-evenly",
+    height: moderateScale(200, 1.2),
+    marginVertical: 16,
+    width: moderateScale(120, 1.2),
   },
 });
