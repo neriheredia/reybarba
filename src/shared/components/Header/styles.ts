@@ -11,6 +11,6 @@ export const styles = StyleSheet.create({
         fontSize: moderateScale(18,1.1),
         paddingRight: 0,
         color: 'black',
-        fontFamily:"Nunito-SemiBold",
+        // fontFamily:"Nunito-SemiBold",
     }
 })

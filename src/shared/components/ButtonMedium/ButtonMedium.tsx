@@ -1,25 +1,23 @@
 import React from "react";
 import { Pressable, Text, StyleSheet, View } from "react-native";
-import { moderateScale, verticalModerateScale } from "../../helpers/scaling";
 import { ButtonMediumProps } from "./interfaces";
-import { colors } from "../../../constants/colors";
+
+import { moderateScale, verticalModerateScale } from "../../helpers/scaling";
+import { colors } from '../../../constants/colors';
 
 const ButtonMedium = ({
   title,
-  color = "blue",
+  color = colors.buttonPrimary,
   onPress = () => console.log("pressed"),
   disabled = false,
+  transparent = false,
 }: ButtonMediumProps) => {
-  const colorButton = () => {
-    if (color === "blue") return colors.buttonPrimary;
-    if (color === "gray") return colors.buttonSecondary;
-  };
   return (
     <Pressable onPress={onPress} disabled={disabled}>
       <View
         style={[
           styles.container,
-          { backgroundColor: colorButton() },
+          { backgroundColor: color },
           disabled && { backgroundColor: colors.buttonSecondary },
         ]}
       >
@@ -32,19 +30,25 @@ const ButtonMedium = ({
 const styles = StyleSheet.create({
   container: {
     height: verticalModerateScale(40, 1.1),
-    width: moderateScale(130, 1.1),
-    backgroundColor: colors.buttonPrimary,
+    width: moderateScale(230, 1.8),
+    backgroundColor: colors.black,
     justifyContent: "center",
-    borderRadius: 70,
     marginHorizontal: moderateScale(10),
+    borderRadius: 100,
+    borderColor: colors.orange,
   },
   button: {
     textAlign: "center",
     color: colors.white,
   },
   fontText: {
-    fontFamily: "Nunito-Bold",
     fontSize: moderateScale(14, 1.1),
+  },
+  buttonOpacity: {
+    backgroundColor: "black",
+    height: verticalModerateScale(40, 1.1),
+    width: moderateScale(230, 1.8),
+    position: "absolute",
   },
 });
 

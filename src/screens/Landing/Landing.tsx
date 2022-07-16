@@ -9,18 +9,20 @@ import {
   TextInput,
 } from "react-native";
 import { images } from "../../constants/images";
-import ButtonMedium from "../../components/ButtonMedium/ButtonMedium";
+import ButtonMedium from "../../shared/components/ButtonMedium/ButtonMedium";
 import { StatusBar } from "expo-status-bar";
 import { moderateScale } from "../../shared/helpers/scaling";
 import { colors } from "../../constants/colors";
 import { useState } from "react";
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useNavigation } from '@react-navigation/core';
 
-const Login = () => {
+const LandingPage = () => {
+  const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const [showInputEmail, setShowInputEmail] = useState(false);
   const [showInputPass, setShowInputPass] = useState(false);
   const [showIngresButton, setShowIngreButton] = useState(true);
   const [showFooter, setShowFooter] = useState(true);
-  console.log("holas");
   return (
     <ImageBackground source={images.loginBackground} style={styles.container}>
       <View style={styles.backgroundOpacity} />
@@ -34,11 +36,8 @@ const Login = () => {
           <View style={styles.buttonContainer}>
             <ButtonMedium
               title={"Ingresar"}
-              onPress={() => {
-                setShowInputEmail(true);
-                setShowIngreButton(false);
-                console.log("hola perrro");
-              }}
+              onPress={() => navigation.navigate("NavigationTab")}
+
               color={colors.orange}
             />
           </View>
@@ -157,4 +156,4 @@ const styles = StyleSheet.create({
     left: moderateScale(10, 4.4),
   },
 });
-export default Login;
+export default LandingPage;
