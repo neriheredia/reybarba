@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import { Alert, ImageBackground, StyleSheet, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -8,6 +8,7 @@ import { images } from "../../../constants/images";
 import ButtonMedium from "../../../shared/components/ButtonMedium/ButtonMedium";
 import { auth, registerNewUser } from "../../../utils/ActionsAuth/RegisterAuth";
 import { onAuthStateChanged } from "firebase/auth";
+import { validateEmail } from "../../../utils/ActionsAuth/ValidateEmail";
 
 const Register = () => {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
@@ -23,6 +24,16 @@ const Register = () => {
   const handleRegister = () => {
     if (newUser.email === "" || newUser.password === "") {
       return Alert.alert("Error", "Complete todos los campos");
+    } else if (validateEmail(newUser.email) === false) {
+      return Alert.alert("Error", "Email no valido");
+    } else if (
+      newUser?.password.length <= 6 ||
+      newUser?.password.length >= 15
+    ) {
+      return Alert.alert(
+        "Error",
+        "Password debe ser mayor a 6 y menor de 15 caracteres"
+      );
     } else {
       registerNewUser(newUser.email, newUser.password);
       setNewUser({ email: "", password: "" });
@@ -43,41 +54,57 @@ const Register = () => {
       style={styles.container}
     >
       <View style={styles.inputContainer}>
-        <TextInput
-          label="Email"
-          onChangeText={(value) => handleChangeUser("email", value)}
-          style={styles.input}
-          value={newUser.email}
-        />
-        <TextInput
-          label="Password"
-          onChangeText={(value) => handleChangeUser("password", value)}
-          style={styles.input}
-          secureTextEntry
-          value={newUser.password}
-        />
-        <ButtonMedium
-          onPress={handleRegister}
-          title={"Registrame"}
-          color={colors.orange}
-        />
-        <ButtonMedium
-          onPress={() => navigation.navigate("Login")}
-          title={"Logearte"}
-          color={colors.orange}
-        />
+        <View
+          style={{
+            flex: 80,
+            justifyContent: "center",
+            width: "100%",
+          }}
+        >
+          <TextInput
+            label="Email"
+            onChangeText={(value) => handleChangeUser("email", value)}
+            style={styles.input}
+            value={newUser.email}
+          />
+          <TextInput
+            label="Password"
+            onChangeText={(value) => handleChangeUser("password", value)}
+            style={styles.input}
+            secureTextEntry
+            value={newUser.password}
+          />
+        </View>
+        <View
+          style={{
+            flex: 20,
+            alignItems: "center",
+            justifyContent: "space-around",
+            width: "100%",
+          }}
+        >
+          <ButtonMedium
+            onPress={handleRegister}
+            title={"Registrame"}
+            color={colors.orange}
+          />
+          <ButtonMedium
+            onPress={() => navigation.navigate("Login")}
+            title={"Logearte"}
+            color={colors.orange}
+          />
+        </View>
       </View>
     </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
-  buttonContainer: {
+  buttonStyles: {
     alignSelf: "center",
     marginTop: 20,
   },
   container: {
-    alignItems: "center",
     flex: 1,
     justifyContent: "center",
     width: "100%",
@@ -85,8 +112,7 @@ const styles = StyleSheet.create({
   inputContainer: {
     alignContent: "center",
     flex: 1,
-    justifyContent: "center",
-    width: "70%",
+    justifyContent: "space-around",
   },
   input: {
     borderWidth: 1,

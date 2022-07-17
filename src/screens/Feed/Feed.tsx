@@ -1,11 +1,25 @@
-import React, { useMemo } from "react";
-import { StyleSheet, FlatList, useWindowDimensions } from "react-native";
-
+import React, { useEffect, useMemo, useState } from "react";
+import {
+  StyleSheet,
+  FlatList,
+  useWindowDimensions,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../utils/ActionsAuth/RegisterAuth";
 import ImageFeed from "../../components/ImageFeed/ImageFeed";
+import { Avatar } from "react-native-paper";
+import { useNavigation } from "@react-navigation/core";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { singOutUser } from "../../utils/ActionsAuth/SingOut";
+import { images } from "../../constants/images";
 
 export const Feed = () => {
   const { height, width } = useWindowDimensions();
-  const images = [
+  const navigation = useNavigation<NativeStackNavigationProp<any>>();
+  const [currentUser, setCurrentUser] = useState(false);
+  const imagesArray = [
     {
       id: 1,
       title: "Hola",
@@ -46,25 +60,87 @@ export const Feed = () => {
 
   const snapToOffsets = useMemo(() => {
     let offSets: Array<number> = [];
-    images.forEach((_, index) => {
+    imagesArray.forEach((_, index) => {
       offSets.push(height * index);
     });
     return offSets;
-  }, [images, height]);
+  }, [imagesArray, height]);
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user: any) => {
+      if (user) {
+        return setCurrentUser(true);
+      } else {
+        return setCurrentUser(false);
+      }
+    });
+  }, []);
 
   return (
-    <FlatList
-      data={images}
-      keyExtractor={(item) => item.id.toString()}
-      renderItem={({ item }) => (
-        <ImageFeed coment={item} height={height} url={item.url} width={width} />
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <FlatList
+        data={imagesArray}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => (
+          <ImageFeed
+            coment={item}
+            height={height}
+            url={item.url}
+            width={width}
+          />
+        )}
+        scrollEnabled={true}
+        pagingEnabled={true}
+        decelerationRate="fast"
+        snapToOffsets={snapToOffsets}
+      />
+      {currentUser && (
+        <TouchableOpacity onPress={() => singOutUser()} style={styles.logout}>
+          <Avatar.Icon
+            size={60}
+            style={{ backgroundColor: "gray", opacity: 0.8 }}
+            icon="logout"
+          />
+        </TouchableOpacity>
       )}
-      scrollEnabled={true}
-      pagingEnabled={true}
-      decelerationRate="fast"
-      snapToOffsets={snapToOffsets}
-    />
+      {currentUser ? (
+        <TouchableOpacity onPress={() => {}} style={styles.avatar}>
+          <Avatar.Image
+            size={60}
+            style={{ backgroundColor: "gray", opacity: 0.8 }}
+            source={images.avatarDefault}
+          />
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity
+          onPress={() => navigation.navigate("Register")}
+          style={styles.avatar}
+        >
+          <Avatar.Image
+            size={60}
+            style={{ backgroundColor: "gray", opacity: 0.8 }}
+            source={images.avatarDefault}
+          />
+        </TouchableOpacity>
+      )}
+    </View>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  avatar: {
+    alignItems: "center",
+    justifyContent: "center",
+    position: "absolute",
+    bottom: 20,
+    right: 20,
+  },
+  logout: {
+    alignItems: "center",
+    justifyContent: "center",
+    position: "absolute",
+    opacity: 0.8,
+    top: 20,
+    right: 20,
+  },
+});

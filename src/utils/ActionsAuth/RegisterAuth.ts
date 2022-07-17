@@ -3,4 +3,7 @@ import {createUserWithEmailAndPassword,getAuth} from 'firebase/auth'
 
 export const auth = getAuth(app)
 
-export const registerNewUser = async (email:string, password:string) =>  await createUserWithEmailAndPassword(auth,email, password)
+export const registerNewUser = async (email:string, password:string) =>  {
+ const newUser = await createUserWithEmailAndPassword(auth,email, password)
+ console.log("REGISTRO",newUser)
+}

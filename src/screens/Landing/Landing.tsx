@@ -25,7 +25,6 @@ const LandingPage = () => {
   const [showInputEmail, setShowInputEmail] = useState(false);
   const [showInputPass, setShowInputPass] = useState(false);
   const [showIngresButton, setShowIngreButton] = useState(true);
-  const [showFooter, setShowFooter] = useState(true);
 
   const fadeLogo = useRef(new Animated.Value(0)).current;
   const fadeButton = useRef(new Animated.Value(0)).current;
@@ -118,18 +117,9 @@ const LandingPage = () => {
                 title={"Listo"}
                 onPress={() => {
                   setShowInputPass(false);
-                  setShowFooter(false);
                 }}
               />
             </View>
-          </View>
-        )}
-        {showFooter && (
-          <View style={styles.textsContainer}>
-            <Text style={styles.text}>¿Primera vez?</Text>
-            <Text style={styles.text}>
-              ¡Registrate gratis haciendo click aca!
-            </Text>
           </View>
         )}
       </ScrollView>

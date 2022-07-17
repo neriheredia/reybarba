@@ -7,7 +7,9 @@ import { TextInput } from "react-native-paper";
 import { colors } from "../../../constants/colors";
 import { images } from "../../../constants/images";
 import ButtonMedium from "../../../shared/components/ButtonMedium/ButtonMedium";
-import { auth, loginUser } from "../../../utils/ActionsAuth/LoginAuth";
+import { auth } from "../../../utils/ActionsAuth/LoginAuth";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { validateEmail } from "../../../utils/ActionsAuth/ValidateEmail";
 
 const Login = () => {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
@@ -20,13 +22,25 @@ const Login = () => {
     setNewUser({ ...newUser, [name]: value });
   };
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (newUser.email === "" || newUser.password === "") {
       return Alert.alert("Error", "Complete todos los campos");
-    } else {
-      loginUser(newUser.email, newUser.password);
-      setNewUser({ email: "", password: "" });
+    } else if (validateEmail(newUser.email) === false) {
+      return Alert.alert("Error", "Credenciales no validas");
     }
+    try {
+      signInWithEmailAndPassword(auth, newUser.email, newUser.password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          return Alert.alert("Bienvenido", `${user.email}`);
+        })
+        .catch((error) => {
+          error && Alert.alert("Error", "Credenciales no validas");
+        });
+    } catch (error) {
+      return Alert.alert("Error", "Error del servidor pruebe mas tarde");
+    }
+    setNewUser({ email: "", password: "" });
   };
 
   useLayoutEffect(() => {
@@ -43,36 +57,62 @@ const Login = () => {
       style={styles.container}
     >
       <View style={styles.inputContainer}>
-        <TextInput
-          label="Email"
-          onChangeText={(value) => handleChangeUser("email", value)}
-          style={styles.input}
-          value={newUser.email}
-        />
-        <TextInput
-          label="Password"
-          onChangeText={(value) => handleChangeUser("password", value)}
-          style={styles.input}
-          secureTextEntry
-          value={newUser.password}
-        />
-        <ButtonMedium
-          onPress={handleLogin}
-          title={"Ingresar"}
-          color={colors.orange}
-        />
+        <View
+          style={{
+            flex: 80,
+            justifyContent: "center",
+            width: "100%",
+          }}
+        >
+          <TextInput
+            label="Email"
+            onChangeText={(value) => handleChangeUser("email", value)}
+            style={styles.input}
+            value={newUser.email}
+          />
+          <TextInput
+            label="Password"
+            onChangeText={(value) => handleChangeUser("password", value)}
+            style={styles.input}
+            secureTextEntry
+            value={newUser.password}
+          />
+        </View>
+        <View
+          style={{
+            flex: 20,
+            alignItems: "center",
+            justifyContent: "space-around",
+            width: "100%",
+          }}
+        >
+          <ButtonMedium
+            onPress={handleLogin}
+            title={"Ingresar"}
+            color={colors.orange}
+          />
+          <ButtonMedium
+            onPress={() =>
+              Alert.alert(
+                "Recuperar Contraseña",
+                "Este apartador esta en construcción, disculpe las molestias"
+              )
+            }
+            title={"Recuperar"}
+            color={colors.orange}
+          />
+        </View>
       </View>
     </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
-  buttonContainer: {
+  buttonStyles: {
     alignSelf: "center",
     marginTop: 20,
   },
   container: {
-    alignItems: "center",
     flex: 1,
     justifyContent: "center",
     width: "100%",
@@ -80,8 +120,7 @@ const styles = StyleSheet.create({
   inputContainer: {
     alignContent: "center",
     flex: 1,
-    justifyContent: "center",
-    width: "70%",
+    justifyContent: "space-around",
   },
   input: {
     borderWidth: 1,
