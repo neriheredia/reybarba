@@ -1,15 +1,15 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
-import { Alert, ImageBackground, StyleSheet, View } from "react-native";
+import React, { useLayoutEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { onAuthStateChanged } from "firebase/auth";
+import { Alert, ImageBackground, StyleSheet, View } from "react-native";
 import { TextInput } from "react-native-paper";
 import { colors } from "../../../constants/colors";
 import { images } from "../../../constants/images";
 import ButtonMedium from "../../../shared/components/ButtonMedium/ButtonMedium";
-import { auth, registerNewUser } from "../../../utils/ActionsAuth/RegisterAuth";
-import { onAuthStateChanged } from "firebase/auth";
+import { auth, loginUser } from "../../../utils/ActionsAuth/LoginAuth";
 
-const Register = () => {
+const Login = () => {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const [newUser, setNewUser] = useState({
     email: "",
@@ -20,11 +20,11 @@ const Register = () => {
     setNewUser({ ...newUser, [name]: value });
   };
 
-  const handleRegister = () => {
+  const handleLogin = () => {
     if (newUser.email === "" || newUser.password === "") {
       return Alert.alert("Error", "Complete todos los campos");
     } else {
-      registerNewUser(newUser.email, newUser.password);
+      loginUser(newUser.email, newUser.password);
       setNewUser({ email: "", password: "" });
     }
   };
@@ -57,13 +57,8 @@ const Register = () => {
           value={newUser.password}
         />
         <ButtonMedium
-          onPress={handleRegister}
-          title={"Registrame"}
-          color={colors.orange}
-        />
-        <ButtonMedium
-          onPress={() => navigation.navigate("Login")}
-          title={"Logearte"}
+          onPress={handleLogin}
+          title={"Ingresar"}
           color={colors.orange}
         />
       </View>
@@ -94,4 +89,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Register;
+export default Login;

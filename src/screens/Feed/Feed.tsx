@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import { StyleSheet, FlatList, useWindowDimensions } from "react-native";
 
-import ImageFeed from "../components/ImageFeed/ImageFeed";
+import ImageFeed from "../../components/ImageFeed/ImageFeed";
 
 export const Feed = () => {
   const { height, width } = useWindowDimensions();

@@ -44,7 +44,9 @@ export const LandingPage = () => {
     }, 3000);
   };
 
-  useEffect(() => fadeIn(), fadeInBtn(), [fadeIn, fadeInBtn]);
+  useEffect(() => {
+    fadeIn(), fadeInBtn();
+  }, [fadeIn, fadeInBtn]);
 
   return (
     <ImageBackground

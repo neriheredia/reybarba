@@ -3,12 +3,12 @@ import { Pressable, Text, StyleSheet, View } from "react-native";
 import { ButtonMediumProps } from "./interfaces";
 
 import { moderateScale, verticalModerateScale } from "../../helpers/scaling";
-import { colors } from '../../../constants/colors';
+import { colors } from "../../../constants/colors";
 
 const ButtonMedium = ({
   title,
   color = colors.buttonPrimary,
-  onPress = () => console.log("pressed"),
+  onPress,
   disabled = false,
   transparent = false,
 }: ButtonMediumProps) => {
