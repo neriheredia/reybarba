@@ -2,14 +2,14 @@ import React, { useLayoutEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { onAuthStateChanged } from "firebase/auth";
-import { Alert, ImageBackground, StyleSheet, View } from "react-native";
-import { TextInput } from "react-native-paper";
+import { Alert, ImageBackground, StyleSheet, View,TextInput, Text,TouchableOpacity } from "react-native";
 import { colors } from "../../../constants/colors";
 import { images } from "../../../constants/images";
 import ButtonMedium from "../../../shared/components/ButtonMedium/ButtonMedium";
 import { auth } from "../../../utils/ActionsAuth/LoginAuth";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { validateEmail } from "../../../utils/ActionsAuth/ValidateEmail";
+import Icon from "react-native-vector-icons/AntDesign"
 
 const Login = () => {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
@@ -52,58 +52,90 @@ const Login = () => {
   }, []);
 
   return (
-    <ImageBackground
-      source={images.registerBackground}
-      style={styles.container}
-    >
-      <View style={styles.inputContainer}>
-        <View
-          style={{
-            flex: 80,
-            justifyContent: "center",
-            width: "100%",
-          }}
+      <View style={styles.container} >
+        <ImageBackground
+          source={images.registerBackground}
+          style={styles.imageContainer}
         >
-          <TextInput
-            label="Email"
-            onChangeText={(value) => handleChangeUser("email", value)}
-            style={styles.input}
-            value={newUser.email}
-          />
-          <TextInput
-            label="Password"
-            onChangeText={(value) => handleChangeUser("password", value)}
-            style={styles.input}
-            secureTextEntry
-            value={newUser.password}
-          />
+        <View style={styles.opaco} ></View>   
+      <View>
+        <ImageBackground source={images.logo} style={styles.logo}/>
         </View>
-        <View
-          style={{
-            flex: 20,
-            alignItems: "center",
-            justifyContent: "space-around",
-            width: "100%",
-          }}
-        >
-          <ButtonMedium
-            onPress={handleLogin}
-            title={"Ingresar"}
-            color={colors.orange}
-          />
-          <ButtonMedium
-            onPress={() =>
-              Alert.alert(
-                "Recuperar Contraseña",
-                "Este apartador esta en construcción, disculpe las molestias"
-              )
-            }
-            title={"Recuperar"}
-            color={colors.orange}
-          />
+        <View style={styles.inputContainer}>
+          <View
+            style={{
+              flex: 80,
+              justifyContent: "center",
+              width: "100%",
+            }}
+          >
+            
+            
+            <Text style={styles.text} > Email: </Text>
+            <TextInput
+              placeholder="Email"
+              placeholderTextColor={"white"}
+              onChangeText={(value) => handleChangeUser("email", value)}
+              style={styles.input}
+              value={newUser.email}
+            />
+            <Text style={styles.text} > Contraseña: </Text>         
+            <TextInput
+              placeholder="Password"
+              placeholderTextColor={"white"}
+              onChangeText={(value) => handleChangeUser("password", value)}
+              style={styles.input}
+              secureTextEntry
+              value={newUser.password}
+            />
+          </View>
+          <View
+            style={{
+              flex: 20,
+              alignItems: "center",
+              justifyContent: "space-around",
+              width: "100%",
+              bottom:20
+            }}
+          >
+            <ButtonMedium
+              onPress={handleLogin}
+              title={"Ingresar"}
+              color={colors.orange}
+            
+            />
+            <View style={styles.viewIcons} >
+              <TouchableOpacity onPress={()=>(alert("te lleva a registrarte con google"))} >
+                <Icon 
+                  name="google" 
+                  size={25}
+                  style={styles.icon}
+                  />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={()=>(alert("te lleva a registrarte con facebook"))} >     
+                  <Icon 
+                  name="facebook-square" 
+                  size={25}
+                  style={styles.icon}
+                  />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={()=>(alert("te lleva a registrarte con insta"))} >     
+                  <Icon 
+                  name="instagram" 
+                  size={25}
+                  style={styles.icon}
+                  />
+              </TouchableOpacity>
+            </View>      
+            
+            <Text style={styles.textRegister} > No tienes cuenta?
+              <Text onPress={()=>(alert("hola"))}>  CLIK AQUI </Text>
+            </Text>         
+          </View>
         </View>
+        </ImageBackground>
       </View>
-    </ImageBackground>
+     
   );
 };
 
@@ -116,16 +148,80 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     width: "100%",
+    
+  },
+  imageContainer:{
+    flex: 1,
+    justifyContent: "center",
+    width: "100%",
+    backgroundColor:"red"  
   },
   inputContainer: {
     alignContent: "center",
     flex: 1,
-    justifyContent: "space-around",
+    justifyContent: "space-around",   
   },
   input: {
-    borderWidth: 1,
+    width:"70%",
+    heigh:"5%",
+    alignContent:"center",
+    borderBottomWidth:1,
+    borderBottomColor:colors.buttonPrimary,
     marginVertical: 20,
+    left:50,
+    top:130,
+    backgroundColor:"none",
+    borderColor:"none",
+    border:"none",
+    color:colors.white,   
   },
+  text:{
+    color:"white",
+    fontSize:18,
+    alignSelf:"center",
+    top:145    
+  },
+  logo:{
+    flex:1,
+    position:"absolute",
+    alignSelf:"center",
+    width:130,
+    height:190,
+    top:100,
+    opacity:1
+     
+  },
+  logoView:{
+    flex:1,
+    width:60,
+    height:60,
+    alignSelf:"center",
+    backgroundColor:"red",
+    top:150
+  },
+  textRegister:{
+    color:"white",
+    top:15
+  },
+  icon:{
+    color:"white",
+    padding:15
+  },
+  viewIcons:{
+    alignSelf:"center",
+    flexDirection:"row",
+  },
+  opaco:{
+    flex:1,
+    opacity:0.5,
+    position:"absolute",
+    top:0,
+    bottom:0,
+    left:0,
+    right:0,
+    backgroundColor:"black"
+  }
+ 
 });
 
 export default Login;
