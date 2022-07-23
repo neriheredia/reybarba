@@ -14,6 +14,9 @@ import { useNavigation } from "@react-navigation/core";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { singOutUser } from "../../utils/ActionsAuth/SingOut";
 import { images } from "../../constants/images";
+import { colors } from '../../constants/colors';
+import { TAB_BAR_HEIGHT } from '../../helpers/app';
+import { moderateScale } from "../../shared/helpers/scaling";
 
 export const Feed = () => {
   const { height, width } = useWindowDimensions();
@@ -61,7 +64,7 @@ export const Feed = () => {
   const snapToOffsets = useMemo(() => {
     let offSets: Array<number> = [];
     imagesArray.forEach((_, index) => {
-      offSets.push(height * index);
+      offSets.push((height - TAB_BAR_HEIGHT) * index);
     });
     return offSets;
   }, [imagesArray, height]);
@@ -77,7 +80,7 @@ export const Feed = () => {
   }, []);
 
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+    <View style={{ flex: 1, justifyContent: "center",backgroundColor:"red", alignItems: "center" }}>
       <FlatList
         data={imagesArray}
         keyExtractor={(item) => item.id.toString()}
@@ -89,37 +92,17 @@ export const Feed = () => {
             width={width}
           />
         )}
+        style={{flex:1}}
         scrollEnabled={true}
         pagingEnabled={true}
-        decelerationRate="fast"
+        decelerationRate="normal"
         snapToOffsets={snapToOffsets}
       />
-      {currentUser && (
+      {true && (
         <TouchableOpacity onPress={() => singOutUser()} style={styles.logout}>
-          <Avatar.Icon
-            size={60}
-            style={{ backgroundColor: "gray", opacity: 0.8 }}
-            icon="logout"
-          />
-        </TouchableOpacity>
-      )}
-      {currentUser ? (
-        <TouchableOpacity onPress={() => {}} style={styles.avatar}>
           <Avatar.Image
-            size={60}
-            style={{ backgroundColor: "gray", opacity: 0.8 }}
-            source={images.avatarDefault}
-          />
-        </TouchableOpacity>
-      ) : (
-        <TouchableOpacity
-          onPress={() => navigation.navigate("Register")}
-          style={styles.avatar}
-        >
-          <Avatar.Image
-            size={60}
-            style={{ backgroundColor: "gray", opacity: 0.8 }}
-            source={images.avatarDefault}
+            size={40}
+            source={images.person2}
           />
         </TouchableOpacity>
       )}
@@ -139,8 +122,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     position: "absolute",
-    opacity: 0.8,
-    top: 20,
-    right: 20,
+    top: moderateScale(13,6),
+    right: moderateScale(10,7),
   },
 });

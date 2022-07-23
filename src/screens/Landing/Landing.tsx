@@ -40,7 +40,7 @@ const LandingPage = () => {
   const fadeInBtn = () => {
     Animated.timing(fadeButton, {
       toValue: 1,
-      duration: 8000,
+      duration: 2000,
       useNativeDriver: false,
     }).start();
   };

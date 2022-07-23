@@ -49,14 +49,14 @@ export const listServices = [
      },
      {
           name:"Corte de pelo y Barba",
-          image: images.shortKid,
+          image: images.shortHair,
           id:"3",
           price: 1100,
           description: "Aprovecha las Promos que Rey de barba tiene para vos!"
      },
      {
           name:"Especial Corte para niños",
-          image: images.shortHair,
+          image: images.shortKid,
           id:"4",
           price: 600,
           description: "Un corte bien canchero con promo especial para niños"
