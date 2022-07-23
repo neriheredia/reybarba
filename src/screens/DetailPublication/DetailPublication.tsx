@@ -62,8 +62,6 @@ const DetailPublication = ({route}:DetailPublication) => {
           <View style={styles.opacityContainer}/>
           <View >
             <Text style={[styles.titleDescription, {marginVertical:10}]}>Descripcion de servicio:</Text>
-            
-
             <Text style={styles.descriptionDescription}>Es un corte de pelo especial con acabado en degrades. Lavado, y Diseño de barba completo</Text>
           </View>
         </View>

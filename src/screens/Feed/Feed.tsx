@@ -80,7 +80,7 @@ export const Feed = () => {
   }, []);
 
   return (
-    <View style={{ flex: 1, justifyContent: "center",backgroundColor:"red", alignItems: "center" }}>
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <FlatList
         data={imagesArray}
         keyExtractor={(item) => item.id.toString()}
@@ -95,7 +95,7 @@ export const Feed = () => {
         style={{flex:1}}
         scrollEnabled={true}
         pagingEnabled={true}
-        decelerationRate="normal"
+        decelerationRate="fast"
         snapToOffsets={snapToOffsets}
       />
       {true && (
