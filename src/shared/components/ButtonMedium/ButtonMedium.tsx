@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   },
   button: {
     textAlign: "center",
-    color: colors.white,
+    color: colors.black,
   },
   fontText: {
     fontSize: moderateScale(14, 1.1),

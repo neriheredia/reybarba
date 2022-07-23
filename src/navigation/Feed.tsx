@@ -2,38 +2,28 @@ import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import NavigationTab from "./NavigationTab";
-import LandingPage from "../screens/Landing/Landing";
 import Register from "../screens/Auth/Register/Register";
 import Login from "../screens/Auth/Login/Login";
 import DetailPublication from '../screens/DetailPublication/DetailPublication';
-import { colors } from '../constants/colors';
+import { Feed } from "../screens/Feed/Feed";
 
 const Stack = createNativeStackNavigator();
 
-const Landing = () => {
+const FeedNavigation = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen
-        name="LandingPage"
-        component={LandingPage}
+        name="FeedNavigation"
+        component={Feed}
         options={{
           headerShown: false,
         }}
       />
-      <Stack.Screen name="NavigationTab" component={NavigationTab} />
+      <Stack.Screen name="DetailPublication" component={DetailPublication} />
       <Stack.Screen name="Register" component={Register} />
       <Stack.Screen name="Login" component={Login} />
-      <Stack.Screen name="Detail" component={DetailPublication}
-        options={{
-          headerShown:true,
-          headerTitle: "Detalle de Publicacion",
-          headerStyle:{
-            backgroundColor:colors.orange
-          }
-        }}
-      />
     </Stack.Navigator>
   );
 };
 
-export default Landing;
+export default FeedNavigation;

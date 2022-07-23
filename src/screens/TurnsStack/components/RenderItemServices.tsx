@@ -16,7 +16,7 @@ const RenderItemService = ({
   
   return (
         <Pressable  onPress={selectService} style={[styles.container, serviceSelected === item && {borderColor:colors.orange}]}>
-          <View style={styles.opacityContainer}/>
+          <View style={[styles.opacityContainer, serviceSelected === item && {opacity:.8}]}/>
           <View style={styles.imageContainer}>
             <Image
                 source={item.image}
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     width:moderateScale(130,3),
   },
   title:{
-    alignSelf:"center",
+    alignSelf:"flex-start",
     color:colors.white,
     fontSize:moderateScale(13,2)
   },
